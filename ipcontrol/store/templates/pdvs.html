@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filter %}
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'store/css/stores.css'%}">
+{% endblock %}
+
+{% block 'body' %}
+    <div class="wrapper">
+        <div class="box"> 
+            <div class="header-box">
+                {% if messages %}
+                    {% for message in messages %}
+                        <section class="alert {{message.tags}}">
+                            {{message}}
+                        </section>
+                    {% endfor %}
+                {% endif %}
+
+            <h2 class="titulo">Lista de PDVs</h2>
+        
+            </div>
+            <div class="borda-box"></div>
+            <div class="body-box">
+            
+                <form action="{% url 'pdvs' %}" method="GET">{% csrf_token%}
+                <div class="row">
+                    
+                       
+
+                        <div class="col-md-4">
+                    
+                            <select class="form-select" name="store">
+                                {% for store in stores %}
+                                    <option {% if store.id == store_selected %} selected {% endif %} value="{{store.id}}">{{store.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    
+                    <div class="col-md-3">
+                        <input type="submit" value="FILTRAR" class="btn btn-lg btn-orange">
+                    </div>
+                </div>
+                </form>
+                {% if pdvs%}
+                    <table class="tabela" cellpadding="20">
+                        <tr>
+                            <th>NFCE</th>
+                            <th>IP</th>
+                        </tr>
+
+                            {% for pdv in pdvs %}
+                                <tr {% if not forloop.counter|is_par %} class="tabela-linha" {%endif%} >
+                                    <td>
+                                        
+                                        {{pdv.nfce}}
+                                        
+                                        
+                                    </td>
+                                    <td>{{pdv.ip}}</td>
+                                
+                                </tr>
+                            {% endfor %}
+                        
+                    </table>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock%}

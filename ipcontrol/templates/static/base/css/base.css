@@ -1,0 +1,11 @@
+body{
+    /* background-color: #C6C6C6 !important; */ 
+    background-color: #DCDCDC !important;
+}
+
+.bg-nav{
+    /* background-color: #3B0032 !important; */
+    background-color: #00963f !important; 
+
+    padding: 10px;
+}

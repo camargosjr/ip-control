@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link href="{% static 'store/css/store.css' %}" rel="stylesheet">
+{% endblock%}
+
+
+{% block 'body' %}
+
+    
+    <br>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <section class="alert {{message.tags}}">
+                    {{message}}
+                </section>
+            {% endfor %}
+        {% endif %}    
+        <div class="row">
+            <!-- <div class="col-md-3">
+                <img width="100%" src="{{logo.url}}" >
+            </div> -->
+
+            <div class="col-md">
+                <h1 class="titulo">{{store.name}}</h1>
+                <!-- <p class="paragrafo">{{store.details}}</p> -->
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Concentrador:</label>
+                <input disabled type="text" class="form-control" value="{{store.concentrator}}">
+            </div>
+
+            <div class="col-md-3">
+                <label>Gateway:</label>
+                <input disabled type="text" class="form-control" value="{{store.gateway}}">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-7">
+                <label>Detalhes:</label>
+                <textarea disabled class="form-control">{{store.details}}</textarea>
+            </div>
+
+            <div class="col-md-3">
+                
+                
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- <a class="btn btn-lg btn-orange">Nova vaga</a> -->
+        <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-orange">Novo pdv</a>
+        <a  href="{% url 'edit_store' store.id %}" class="btn btn-lg btn-orange">Editar</a>
+        <div class="row">
+        {% for pdv in pdvs %}
+            <div class="col-md">
+
+            <div class="box-vagas">
+                <div class="header-vagas">
+                    <a href="#">
+                        <span>NFCE</span> {{pdv.nfce}}
+                    </a>
+                    <a href="{% url 'delete_pdv' store.id pdv.id%}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>     
+                    </a>
+                </div>
+
+                <div class="body-vagas">
+                    <div class="row">
+                        <div class="col-md">
+                            <label class="paragrafo">IP:</label>
+                             
+                            <label class="paragrafo paragrafo-orange">{{pdv.ip}}</label>     
+                                             
+                        </div>
+
+                        <!-- <div class="col-md">
+                            <label class="paragrafo">Status <img src="{% static 'empresa/img/flag_green.png' %}"></label>
+                            <br>        
+                            <label class="paragrafo paragrafo-orange">{{vaga.get_status_display}}</label>                           
+                        </div> -->
+
+                    </div>
+                </div>
+                
+            </div>
+                
+            </div>
+        {% endfor %}
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="font-size: 30px" class="modal-title titulo" id="exampleModalLabel">Novo pdv</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'new_pdv'%}" method="POST" name="">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md">
+                            <input hidden type="text" name="id-store" class="form-control" value="{{store.id}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <label>NFCE:</label>
+                            <input required type="text" name="nfce" class="form-control" placeholder="nfce">
+                        </div>
+
+                        <div class="col-md">
+                            <label>IP:</label>
+                            <input required type="text" name="ip" class="form-control" placeholder="ip...">
+                        </div>
+                        
+                    </div>
+                    <br>
+                
+               
+                    <br>
+                    <input type="submit" value="Salvar" class="btn btn-lg btn-orange">
+                  
+                </form>
+            </div>
+           
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'store/js/pdv.js'%}"></script>
+{% endblock %}

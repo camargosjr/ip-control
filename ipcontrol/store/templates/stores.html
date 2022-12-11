@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filter %}
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'store/css/stores.css'%}">
+{% endblock %}
+
+{% block 'body' %}
+    <div class="wrapper">
+        <div class="box"> 
+            <div class="header-box">
+                {% if messages %}
+                    {% for message in messages %}
+                        <section class="alert {{message.tags}}">
+                            {{message}}
+                        </section>
+                    {% endfor %}
+                {% endif %}
+                <h2 id="title" class="titulo">Gerenciar Lojas</h2>
+        
+                <a href="{% url 'new_store' %}" class="btn-nova-empresa">Nova Loja</a>
+            </div>
+            <div class="borda-box"></div>
+            <div class="body-box">
+            
+                <form action="{% url 'stores' %}" method="GET">{% csrf_token%}
+                <div class="row">
+                    
+                        <div class="col-md-5">
+                            <input type="text" placeholder="Busque pelo nome" class="form-control" name="name">
+                        </div>
+
+                       
+                    <div class="col-md-3">
+                        <input type="submit" value="FILTRAR" class="btn btn-lg btn-orange">
+                    </div>
+                </div>
+                </form>
+                {% if stores %}
+                    <table class="tabela" cellpadding="20">
+                    
+                        <tr>
+                            <th>Nome</th>
+                            <th>Concentrador</th>
+                            <th>Gateway</th>
+                            <th>Ação</th>
+                        </tr>
+
+                            {% for store in stores %}
+                                <tr {% if not forloop.counter|is_par %} class="tabela-linha" {%endif%} >
+                                    <td>
+                                        <a href="{% url 'store' store.id %}" class="store-name">
+                                            {{store.name}}
+                                        </a>
+                                        
+                                    </td>
+                                    <td>{{store.concentrator}}</td>
+                                    <td>
+                                        {{store.gateway}}
+                                    </td>
+                                
+                                    <td>
+                                        <!-- <a id="ex" href="www.google.com" class="btn-excluir">Excluir Loja</a> -->
+
+                                        <a id="ex" href="{% url 'delete_store' store.id %}" class="btn-excluir">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>     
+
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        
+                    </table>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+    <script src="{% static 'store/js/pdv.js'%}"></script>
+{% endblock%}
