@@ -38,7 +38,6 @@ label{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* background-color: #7D2948; */
     background-color: #00963f;
     padding: 15px;
     color: white
@@ -46,6 +45,7 @@ label{
 
 .body-vagas{
     padding: 15px;
+    width: 100%;
 }
 
 .paragrafo-orange{

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load filter %}
-{% block 'title' %}Controle de IPs{% endblock%}
+{% block 'title' %}Lojas{% endblock%}
 {% block 'head' %}
     <link rel="stylesheet" href="{% static 'store/css/stores.css'%}">
 {% endblock %}
@@ -94,7 +94,7 @@
                         
                             <div class="box-stores">
                                 <div class="header-stores">
-                                    <a class="store-name" href="{% url 'store' store.id %} ">{{store.name}}</a>
+                                    <a class="btn btn-sm btn-orange store-name" href="{% url 'store' store.id %} ">{{store.name}}</a>
                                     <a id="ex" href="{% url 'delete_store' store.id %}" class="btn-excluir">
 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

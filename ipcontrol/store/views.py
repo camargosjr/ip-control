@@ -23,7 +23,7 @@ def new_store(request):
             messages.add_message(request, constants.WARNING, 'O campo nome não pode ser vazio.')
             return redirect('/new_store')
         
-        store = Store.objects.filter(name = name)
+        store = Store.objects.filter(name = name.upper())
     
         if store:
             messages.add_message(request, constants.WARNING, 'Loja com esse nome já cadastrada.')

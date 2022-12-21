@@ -32,13 +32,15 @@
 }
 
 .btn-nova-empresa:hover{
+    transition: 0.2s;
     color: white;
     text-decoration: none;
-    /* background-color: #631f38; */
+    transition: 0.2s;
     background-color: #00963f;
 }
 
 .btn-excluir:hover{
+    transition: 0.2s;
     color: #FF6961;
     text-decoration: none;
 }
@@ -71,7 +73,7 @@
 .btn-orange:hover{
     color: white;
     text-decoration: none;
-    /* background-color: #631f38; */
+    transition: 0.2s;
     background-color: #00963f;
 }
 
@@ -119,6 +121,7 @@ body{
     color: #212529;
 }
 .store-name:hover{
+    transition: 0.2s;
     color: #09AD7C ;
 }
 
@@ -151,6 +154,14 @@ body{
     #input-search{
         width: 100%;
     }
+    .store-name{
+        color: rgb(221, 218, 218);
+        font-size: 0.8rem;
+        margin: 5px 0px;
+    }
+    .store-name:hover{
+        color: #fff;
+    }
     .box-stores{
         width: 100%;
         margin-top: 30px;
@@ -178,7 +189,7 @@ body{
     }
     .conc-gw{
         font-size: 0.7rem;
-        color: #09AD7C;
+        color: #03422f;
     }
 
    
