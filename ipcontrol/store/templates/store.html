@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col-md-7">
                 <label>Detalhes:</label>
-                <textarea disabled class="form-control">{{store.details}}</textarea>
+                <textarea id="details" disabled rows="4" class="form-control">{{store.details}}</textarea>
             </div>
 
             <div class="col-md-3">
@@ -63,7 +63,7 @@
         <div class="row">
         {% for pdv in pdvs %}
             <div class="col-md">
-
+ 
             <div class="box-vagas">
                 <div class="header-vagas">
                     <a href="#">
@@ -82,16 +82,9 @@
                         <div class="col-md">
                             <label class="paragrafo">IP:</label>
                              
-                            <label class="paragrafo paragrafo-orange">{{pdv.ip}}</label>     
-                                             
+                            <label class="paragrafo paragrafo-orange">{{pdv.ip}}</label>                                 
                         </div>
-
-                        <!-- <div class="col-md">
-                            <label class="paragrafo">Status <img src="{% static 'empresa/img/flag_green.png' %}"></label>
-                            <br>        
-                            <label class="paragrafo paragrafo-orange">{{vaga.get_status_display}}</label>                           
-                        </div> -->
-
+                        
                     </div>
                 </div>
                 

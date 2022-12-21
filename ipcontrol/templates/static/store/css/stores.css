@@ -3,14 +3,16 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
+    
 }
 
 .box {
-    
+ 
     width: 80vw;
     background: #fff;
     box-shadow: 4px 4px 10px rgba(0,0,0,.3);
+   
 }
 
 
@@ -62,6 +64,10 @@
     color: white;
 }
 
+#input-search{
+    width: 20rem;
+}
+
 .btn-orange:hover{
     color: white;
     text-decoration: none;
@@ -72,7 +78,11 @@
 
 .tabela{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 20px; 
+}
+
+.align-middle{
+    text-align: center;
 }
 
 .tabela-linha{
@@ -102,6 +112,74 @@ body{
     font-weight: bold;
     color: #000;
 }
+
+.store-info{
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #212529;
+}
 .store-name:hover{
     color: #09AD7C ;
+}
+
+#table-wrapper{
+    overflow: hidden;
+}
+.container {
+    display: none;
+}
+
+
+@media (max-width: 800px){
+    .box{
+        width: 95vw;
+    } 
+}
+
+@media (max-width: 600px ){
+    .box{
+        width: 95vw;
+    }
+   
+
+    .container {
+        display: block;
+    }
+    .btn-nova-empresa{
+        display: none;
+    }
+    #input-search{
+        width: 100%;
+    }
+    .box-stores{
+        width: 100%;
+        margin-top: 30px;
+        background-color: #EEEEEE;
+        
+        border: 1px solid #DCDCDC;     
+    }
+    #hidden-table{
+      display: none;
+    }
+    /* #ede6e6
+    color: 212529 */
+    .header-stores{
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid #DCDCDC;
+        
+    }
+    .body-store-title{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .conc-gw{
+        font-size: 0.7rem;
+        color: #09AD7C;
+    }
+
+   
 }

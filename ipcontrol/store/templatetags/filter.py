@@ -8,3 +8,7 @@ def is_par(value):
         return True
     
     return False
+
+@register.filter
+def get_value(dict, key):
+    return dict.get(key)

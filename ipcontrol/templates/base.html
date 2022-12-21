@@ -3,24 +3,33 @@
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+   
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block 'title' %}{% endblock%}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
     {% block 'head' %}{% endblock%}
   </head>
   <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
-        <a class="navbar-brand" href="{% url 'pdvs'%}">IP.CONTROL</a>
-        <a class="navbar-brand" href="{% url 'stores'%}">LOJAS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-    </nav>
+    <header id="header">
+      <span  id="logo" >IP.CONTROL</span>
+      <nav id="nav">
+        <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburguer"></span>
+      </button>
+        <ul id="menu" role="menu">
+          <li><a href="{% url 'stores' %}">LOJAS</a></li>
+          <li><a href="{% url 'pdvs' %}">PDVs</a></li>
+          <li id="menu-new-store"><a href="{% url 'new_store' %}">NOVA LOJA</a></li>
+          
+       
+        </ul>
+      </nav>
+   </header>
+   
     
     {% block 'body' %}{% endblock%}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'base/js/app.js'%}"></script>
   </body>
 </html>

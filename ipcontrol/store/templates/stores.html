@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load filter %}
+{% block 'title' %}Controle de IPs{% endblock%}
 {% block 'head' %}
     <link rel="stylesheet" href="{% static 'store/css/stores.css'%}">
 {% endblock %}
 
 {% block 'body' %}
     <div class="wrapper">
+        
         <div class="box"> 
             <div class="header-box">
                 {% if messages %}
@@ -16,8 +18,8 @@
                         </section>
                     {% endfor %}
                 {% endif %}
-                <h2 id="title" class="titulo">Gerenciar Lojas</h2>
-        
+                <h2  class="titulo">Gerenciar Lojas</h2>
+         
                 <a href="{% url 'new_store' %}" class="btn-nova-empresa">Nova Loja</a>
             </div>
             <div class="borda-box"></div>
@@ -25,22 +27,31 @@
             
                 <form action="{% url 'stores' %}" method="GET">{% csrf_token%}
                 <div class="row">
-                    
+                    <div id="input-search" class="input-group">
+                        <input  type="text" name="name" class="form-control" placeholder="Busque pelo nome" aria-label="Pesquisa por nome" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-orange" type="submit">Go</button>
+                        </div>
+                    </div>
+<!--                     
                         <div class="col-md-5">
                             <input type="text" placeholder="Busque pelo nome" class="form-control" name="name">
                         </div>
 
                        
                     <div class="col-md-3">
-                        <input type="submit" value="FILTRAR" class="btn btn-lg btn-orange">
-                    </div>
+                        <input id="btn-filter" type="submit" value="FILTRAR" class="btn btn-lg btn-orange">
+                    </div> -->
                 </div>
                 </form>
+            
                 {% if stores %}
-                    <table class="tabela" cellpadding="20">
+                    
+                    <table id="hidden-table" class="tabela" cellpadding="10">
                     
                         <tr>
                             <th>Nome</th>
+                            <th class="align-middle">Quant. PDVs</th>
                             <th>Concentrador</th>
                             <th>Gateway</th>
                             <th>Ação</th>
@@ -51,17 +62,17 @@
                                     <td>
                                         <a href="{% url 'store' store.id %}" class="store-name">
                                             {{store.name}}
-                                        </a>
-                                        
+                                        </a>  
                                     </td>
+                                    <td class="align-middle">{{ number_stores|get_value:store.id }}</td>
+
                                     <td>{{store.concentrator}}</td>
                                     <td>
                                         {{store.gateway}}
                                     </td>
                                 
                                     <td>
-                                        <!-- <a id="ex" href="www.google.com" class="btn-excluir">Excluir Loja</a> -->
-
+                                    
                                         <a id="ex" href="{% url 'delete_store' store.id %}" class="btn-excluir">
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -75,7 +86,43 @@
                             {% endfor %}
                         
                     </table>
+                        
                 {% endif %}
+                <div class="container">
+                    <div class="row">
+                        {% for store in stores%}
+                        
+                            <div class="box-stores">
+                                <div class="header-stores">
+                                    <a class="store-name" href="{% url 'store' store.id %} ">{{store.name}}</a>
+                                    <a id="ex" href="{% url 'delete_store' store.id %}" class="btn-excluir">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>     
+
+                                    </a>
+                                </div>
+                                <div class="body-stores">    
+                                    <div class="body-store-title">
+                                        <label class="store-info">CONC:</label>
+                                        <label class="store-info">GW:</label>
+                                    </div>
+                                
+                                    <div class="body-store-title">
+                                        <span class="conc-gw">{{store.concentrator}}</span>
+                                        <span class="conc-gw" >{{store.gateway}}</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                        {% endfor %}  
+                                      
+                    </div>
+                </div>
+                
             </div>
 
         </div>

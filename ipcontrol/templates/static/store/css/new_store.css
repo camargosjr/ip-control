@@ -8,7 +8,7 @@
 
 .box {
     padding: 30px;
-    width: 40vw;
+    width: 45vw;
     
     background: #fff;
     box-shadow: 4px 4px 10px rgba(0,0,0,.3);
@@ -39,6 +39,10 @@
     background-color: #00963f;
     color: white;
 }
+#details{
+    resize: none;
+}
+
 
 @media (max-width: 1000px)
 {

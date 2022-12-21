@@ -3,7 +3,7 @@
     /* color: #7D2948; */
     color: #212529;
     font-weight: bold;
-
+ 
 }
 
 .paragrafo{
@@ -14,7 +14,7 @@
     background-color: #09AD7C;
     color: white;
 }
-
+ 
 .btn-orange:hover{
     background-color: #00963f;
 }
@@ -23,7 +23,11 @@ label{
     font-weight: bold;
 }
 
-.box-vagas{
+#details{
+    resize: none;
+}
+
+.box-vagas{ 
 
     width: 400px;
     margin-top: 60px;
