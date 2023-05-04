@@ -1,10 +1,9 @@
 .wrapper {
-    margin-top: 3%;
+    margin-top: 2%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center; 
-    
 }
 
 .box {
@@ -12,12 +11,13 @@
     width: 80vw;
     background: #fff;
     box-shadow: 4px 4px 10px rgba(0,0,0,.3);
-   
+    
 }
 
 
 .titulo{
     display: inline;
+    
 }
 
 .btn-nova-empresa{
@@ -29,6 +29,7 @@
     padding: 10px;
     border-radius: 10px;
     font-weight: bold;
+    
 }
 
 .btn-nova-empresa:hover{
@@ -39,19 +40,6 @@
     background-color: #00963f;
 }
 
-.info-stores{
-    display: flex;
-    font-size: 0.8rem;
-    justify-content: end;
-    padding: 0.1rem 1rem;
-    color: #212529;
-}
-.info-stores span{
-    /* padding: 0rem 0.8rem ; */
-    margin-right: 1rem;
-}
-
-
 .btn-excluir:hover{
     transition: 0.2s;
     color: #FF6961;
@@ -60,7 +48,7 @@
 
 .header-box{
 
-    padding: 30px;
+    padding: 20px;
 
 }
 
@@ -69,7 +57,7 @@
 }
 
 .body-box{
-    padding: 30px;
+    padding: 10px;
 }
 
 .btn-orange{
@@ -77,6 +65,14 @@
     /* background-color: #ED8554; */
     background-color: #09AD7C;
     color: white;
+}
+
+.info-stores{
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: end;
+    padding: 0.1rem 1rem;
+    color: #212529;
 }
 
 #input-search{
@@ -93,7 +89,7 @@
 
 .tabela{
     width: 100%;
-    margin-top: 20px; 
+    margin-top: 2px; 
 }
 
 .align-middle{
@@ -144,6 +140,26 @@ body{
 .container {
     display: none;
 }
+
+.pagination{
+    margin-top: 1rem;    
+}
+.pagination a{
+    color: #212529; 
+}
+
+.pagination a:hover {
+    color: #000;
+}
+
+.pagination li{
+    color: #212529; 
+}
+.pagination li:hover{
+    color: #212529; 
+}
+
+
 
 
 @media (max-width: 800px){

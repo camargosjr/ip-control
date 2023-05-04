@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filter %}
+{% block 'title' %}MAC Address cadastrados{% endblock%}
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'maccontrol/css/mac_list.css'%}">
+{% endblock %}
+99freela1234x
+{% block 'body' %}
+    <div class="wrapper">
+        
+        <div class="box"> 
+            <div class="header-box">
+                {% if messages %}
+                    {% for message in messages %}
+                        <section class="alert {{message.tags}}">
+                            {{message}}
+                        </section>
+                    {% endfor %}
+                {% endif %}
+                <h2  class="titulo">Endereços MAC</h2>
+                
+                <a href="{% url 'new_mac' %}" class="btn-nova-empresa">Novo</a>
+        
+            </div>
+            <div class="borda-box"></div>
+
+            
+            <div class="body-box">
+            
+                <form action="{% url 'mac-control' %}" method="GET">{% csrf_token%}
+                <div class="row">
+                    <div id="input-search" class="input-group">
+                        <input  type="text" name="name" class="form-control" placeholder="Nome ou Endereço MAC" aria-label="Pesquisa por nome" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-orange" type="submit">Go</button>
+                        </div>
+                    </div>
+
+                </div>
+                </form>
+            
+                {% if page_obj %}
+                    
+                    <table id="hidden-table" class="tabela" cellpadding="10">
+                    
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            {% comment %} <th class="align-middle">Quant. PDVs</th> {% endcomment %}
+                            <th>Endereco MAC</th>
+                            <th>Data Expiração</th>
+                            <th>Autorizado</th>
+                            <th>Ação</th>
+                        </tr>
+                          
+                            {% for mac in page_obj %}
+                               
+                                <tr {% if not forloop.counter|is_par %} class="tabela-linha" {%endif%} >
+                                    <td>{{ forloop.counter|get_id:page_obj.number }}</td>
+                                    <td>
+                                            {{mac.name}}
+                                    </td>
+                                    {% comment %} <td class="align-middle">{{ number_stores|get_value:store.id }}</td> {% endcomment %}
+
+                                    <td>{{mac.mac_address}}</td>
+                                    <td>{{mac.allowed_days|date:"d/m/Y H:i"|get_never}}</td>
+
+                                    <td>
+                                        {{mac.authorized|upper}}
+                                    </td>
+                                
+                                    <td>
+                                    
+                                        <a id="ex" href="{% url 'delete_mac' mac.id %}" class="btn-excluir">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                            </svg>     
+
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        
+                    </table>
+
+                    <nav aria-label="Paginaçao">
+                        <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                          <li class="page-item"><a class="page-link" href="{% url 'mac-control' %}?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a></li>
+                        {% endif %}
+                         
+                         <li class="page-item page-link">
+                            Página {{page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                         </li>
+
+                        {% if page_obj.has_next %}
+                          <li class="page-item"><a class="page-link" href="{% url 'mac-control' %}?page={{ page_obj.next_page_number }}">Próximo &raquo;</a></li>
+                        {% endif %}
+                        </ul>
+                      </nav>
+                    
+                {% endif %}
+               
+                
+            </div>
+
+        </div>
+    </div>
+    <script src="{% static 'store/js/pdv.js'%}"></script>
+{% endblock%}

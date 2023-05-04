@@ -58,7 +58,9 @@ def new_store(request):
 
 def stores(request):
     stores = Store.objects.all().order_by('name')
+    size_pdvs = Pdv.objects.all().count()
     number_stores = {}
+    
     for store in stores:
         list_pdv = Pdv.objects.filter(store_id=store.id)
         number_stores[store.id] = len(list_pdv)
@@ -69,7 +71,7 @@ def stores(request):
     if filter_name:
         stores = stores.filter(name__icontains=filter_name)
 
-    return render(request, 'stores.html',{'stores': stores, 'number_stores': number_stores})
+    return render(request, 'stores.html',{'stores': stores, 'number_stores': number_stores, 'size_pdvs': size_pdvs})
 
 def delete_store(request,id):
     store = Store.objects.get(id=id)

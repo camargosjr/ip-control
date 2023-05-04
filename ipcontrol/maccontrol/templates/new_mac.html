@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'title' %}
+    Nova Loja
+{% endblock%}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'store/css/new_store.css'%}">
+{% endblock%}
+
+{% block 'body' %}
+
+    <div class="wrapper">
+        <div class="box">
+            <div class="header">
+                <h3 class="titulo">Cadastro</h3>
+            </div>
+            {% if messages %}
+                {% for message in messages%}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {%endfor%}
+            {% endif%}
+            <div class="body-box">
+                <form action="{% url 'new_mac'%}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Nome:</label>
+                            <input required type="text" class="form-control" name="name" placeholder="Nome">
+                        </div>
+
+                        <div class="col-4">
+                            <label>Endereço MAC</label>
+                            <input  required type="text" class="form-control" name="mac_address" placeholder="00:00:00:00:00:00">
+                        </div>
+                        <div class="col">
+                            <label>Tempo</label>
+                            <input  
+                                required type="number"  
+                                min="0" 
+                                value="1"
+                                class="form-control" 
+                                name="num_days"
+                            >
+                        </div>
+                    </div>
+                    <br>
+                   
+                    <br>
+                    <input type="submit" value="Salvar" class="btn btn-lg btn-orange">
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+   
+{% endblock%}

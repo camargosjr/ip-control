@@ -20,6 +20,13 @@
         <ul id="menu" role="menu">
           <li><a href="{% url 'stores' %}">LOJAS</a></li>
           <li><a href="{% url 'pdvs' %}">PDVs</a></li>
+          <li><a href="{% url 'login' %}">GERENCIAR MACs</a></li>
+          <form id="form-logout" action="{% url 'logout' %}" method="post">{% csrf_token%}
+            {%if request.user.is_authenticated %}
+              <button>SAIR </button>
+            {% endif %}
+          </form>
+         
           <li id="menu-new-store"><a href="{% url 'new_store' %}">NOVA LOJA</a></li>
           
        

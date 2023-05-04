@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+#cd /home/guile/superso/ip-control/
+/home/guile/superso/ip-control/clear-databse.py
+
+

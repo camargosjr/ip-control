@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'title' %}
+Login
+{%endblock%}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'maccontrol/css/login.css'%}">
+{% endblock%}
+
+{% block 'body' %}
+
+    <div class="wrapper">
+        <div class="box">
+            <div class="header">
+                <h3 class="titulo">LOGIN</h3>
+            </div>
+            {% if messages %}
+                {% for message in messages%}
+                    <section class="alert {{message.tags}}">
+                        {{message}}
+                    </section>
+                {%endfor%}
+            {% endif%}
+            <div class="body-box">
+                <form action="{% url 'login'%}" method="POST">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-md">
+                            <label>Nome:</label>
+                            <input required type="text" class="form-control" name="username" placeholder="Nome de usuário">
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                          <div class="col-md">
+                            <label>Senha:</label>
+                            <input  required type="password" class="form-control" name="password" placeholder="Senha">
+                        </div>
+                    </div>
+                   
+                    <br>
+                    <div class="row">
+                        <div class="d-grid gap-2">
+                            <input type="submit" value="Entrar" class="btn btn-lg btn-orange">
+                        </div>
+                        
+                    </div>
+                    {% comment %} <input type="submit" value="Entrar" class="btn btn-lg btn-orange"> {% endcomment %}
+                    
+                    
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+   
+{% endblock%}

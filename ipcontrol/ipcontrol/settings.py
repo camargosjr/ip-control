@@ -26,11 +26,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-7*q!s1mxb(fw*_6
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = True #os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
-ALLOWED_HOSTS = ['127.0.0.1']
-
+ALLOWED_HOSTS = ['127.0.0.1','192.168.189.250']
+# Tempo de vida do COOKIE
+SESSION_COOKIE_AGE = 10800
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Application definition
 
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store'
+    'store',
+    'maccontrol'
 ]
 
 MIDDLEWARE = [
@@ -113,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-BR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -142,3 +145,35 @@ MESSAGE_TAGS = {
     constants.INFO : 'alert-info',
     constants.WARNING : 'alert-warning',
 }
+
+
+#Loggin
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         # "verbose": {
+#         #     "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+#         #     "style": "{",
+#         # },
+#         "simple": {
+#             "format": "{levelname} {asctime} {module} {message}",
+#             "style": "{",
+#         },
+#     }, #warning
+#     "handlers": {
+#         "file": {
+#             "level": "WARNING",
+#             "class": "logging.FileHandler",
+#             "filename": "/home/guile/superso/ip-control/ipcontrol/logs/logs.log",
+#             "formatter":"simple"
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["file"],
+#             "level": "INFO",
+#             # "propagate": True,
+#         },
+#     },
+# }

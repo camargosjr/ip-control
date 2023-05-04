@@ -23,6 +23,10 @@
                 <a href="{% url 'new_store' %}" class="btn-nova-empresa">Nova Loja</a>
             </div>
             <div class="borda-box"></div>
+            <div class="info-stores">
+                <span>LOJAS: {{stores|length}}</span> 
+                <span>PDVs: {{ size_pdvs }}</span>
+            </div>
             <div class="body-box">
             
                 <form action="{% url 'stores' %}" method="GET">{% csrf_token%}

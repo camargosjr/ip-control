@@ -8,7 +8,7 @@
 
 .box {
     padding: 30px;
-    width: 50vw;
+    width: 30vw;
     
     background: #fff;
     box-shadow: 4px 4px 10px rgba(0,0,0,.3);
@@ -43,9 +43,6 @@
     resize: none;
 }
 
-.input-time input{
-    width: 5rem;
-}
 
 @media (max-width: 1000px)
 {
