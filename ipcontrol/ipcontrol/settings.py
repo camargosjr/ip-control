@@ -13,9 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants
 import os
+from datetime import date
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TODAY=date.today()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -147,33 +149,44 @@ MESSAGE_TAGS = {
 }
 
 
-#Loggin
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "formatters": {
-#         # "verbose": {
-#         #     "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-#         #     "style": "{",
-#         # },
-#         "simple": {
-#             "format": "{levelname} {asctime} {module} {message}",
-#             "style": "{",
-#         },
-#     }, #warning
-#     "handlers": {
-#         "file": {
-#             "level": "WARNING",
-#             "class": "logging.FileHandler",
-#             "filename": "/home/guile/superso/ip-control/ipcontrol/logs/logs.log",
-#             "formatter":"simple"
-#         },
-#     },
-#     "loggers": {
-#         "django": {
-#             "handlers": ["file"],
-#             "level": "INFO",
-#             # "propagate": True,
-#         },
-#     },
-# }
+# Logs
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
+        # "verbose": {
+        #     "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+        #     "style": "{",
+        # },
+        "simple": {
+            "format": "{levelname}:{asctime}:{module}:{message}",
+            "style": "{",
+        },
+    }, #warning
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": f"/home/guile/superso/ip-control/ipcontrol/logs/{TODAY}.log",
+            "formatter":"simple"
+        },
+        "file2":{
+            "level": "WARNING",
+            "class": "logging.FileHandler",
+            "filename": f"/home/guile/superso/ip-control/ipcontrol/logs/django.log",
+            "formatter":"simple"
+        }
+    },
+    "loggers": {
+        "djangojr": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django":{
+            "handlers": ["file2"],
+            "level": "WARNING",
+            "propagate": False,
+        }
+    },
+}

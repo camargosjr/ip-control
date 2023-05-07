@@ -54,26 +54,28 @@ def user_logout(request):
     raise Http404("Página não encontrada")
 
 def is_registered(request):
-    logger = logging.getLogger('django')
+    logger = logging.getLogger('djangojr')
    
     today = timezone.now()
     macaddress = request.GET.get('macaddress')
     store = request.GET.get('store')
     
-
-
+    
     if not macaddress:
         logger.warning('MACADDRESS NAO INFORMADO')
         return HttpResponse("NOT!")
     
     # Verifica se está no formato do endereço mac
     if not re.match(regex_mac_adress,macaddress):
-        logger.warning(f'MACADDRESS {macaddress} INVALIDO')
+        logger.warning(f'LOJA:{store} MACADDRESS {macaddress} INVALIDO')
         return HttpResponse("NOT!")
     
     
     mac_address = MacAddress.objects.filter(mac_address = macaddress, allowed_days__gte =today )
+
+    # Se macaddress cadastrado retorna "OK!"
     if mac_address:
+        logger.info(f"LOJA:{store} {macaddress} AUTORIZADO")
         return HttpResponse("OK!")
     else:
         logger.warning(f'LOJA:{store} {macaddress} NAO CADASTRADO')
