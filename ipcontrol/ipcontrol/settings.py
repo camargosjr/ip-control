@@ -14,9 +14,12 @@ from pathlib import Path
 from django.contrib.messages import constants
 import os
 from datetime import date
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env()
 TODAY=date.today()
 
 # Quick-start development settings - unsuitable for production
@@ -24,14 +27,16 @@ TODAY=date.today()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'django-insecure-7*q!s1mxb(fw*_6+9k$=e63#e#alke^bp5kq8^8j#s^t*yith&'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-7*q!s1mxb(fw*_6+9k$=e63#e#alke^bp5kq8^8j#s^t*yith&')
+#SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','django-insecure-7*q!s1mxb(fw*_6+9k$=e63#e#alke^bp5kq8^8j#s^t*yith&')
+SECRET_KEY= env.str('DJANGO_SECRET_KEY', default='django-insecure-7*q!s1mxb(fw*_6+9k$=e63#e#alke^bp5kq8^8j#s^t*yith&')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = True #os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = env.bool('DEBUG', default=False) #os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.189.250']
+# ALLOWED_HOSTS = ['127.0.0.1','192.168.189.250']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+LOG_FILE_PATH = os.path.join(env.str('LOG_FILE_PATH'), TODAY.strftime("%d-%m-%Y"))
+print(LOG_FILE_PATH)
 # Tempo de vida do COOKIE
 SESSION_COOKIE_AGE = 10800
 SESSION_SAVE_EVERY_REQUEST = True
@@ -150,43 +155,44 @@ MESSAGE_TAGS = {
 
 
 # Logs
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": True,
-    "formatters": {
-        # "verbose": {
-        #     "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-        #     "style": "{",
-        # },
-        "simple": {
-            "format": "{levelname}:{asctime}:{module}:{message}",
-            "style": "{",
+if not DEBUG:
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": True,
+        "formatters": {
+            # "verbose": {
+            #     "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            #     "style": "{",
+            # },
+            "simple": {
+                "format": "{levelname}:{asctime}:{module}:{message}",
+                "style": "{",
+            },
+        }, #warning
+        "handlers": {
+            "file": {
+                "level": "INFO",
+                "class": "logging.FileHandler",
+                "filename": f"{LOG_FILE_PATH}.log",
+                "formatter":"simple"
+            },
+            "file2":{
+                "level": "WARNING",
+                "class": "logging.FileHandler",
+                "filename": f"{LOG_FILE_PATH}_django.log",
+                "formatter":"simple"
+            }
         },
-    }, #warning
-    "handlers": {
-        "file": {
-            "level": "INFO",
-            "class": "logging.FileHandler",
-            "filename": f"/home/guile/superso/ip-control/ipcontrol/logs/{TODAY}.log",
-            "formatter":"simple"
+        "loggers": {
+            "djangojr": {
+                "handlers": ["file"],
+                "level": "INFO",
+                "propagate": False,
+            },
+            "django":{
+                "handlers": ["file2"],
+                "level": "WARNING",
+                "propagate": False,
+            }
         },
-        "file2":{
-            "level": "WARNING",
-            "class": "logging.FileHandler",
-            "filename": f"/home/guile/superso/ip-control/ipcontrol/logs/django.log",
-            "formatter":"simple"
-        }
-    },
-    "loggers": {
-        "djangojr": {
-            "handlers": ["file"],
-            "level": "INFO",
-            "propagate": False,
-        },
-        "django":{
-            "handlers": ["file2"],
-            "level": "WARNING",
-            "propagate": False,
-        }
-    },
-}
+    }
