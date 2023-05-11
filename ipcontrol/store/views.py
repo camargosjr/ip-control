@@ -175,6 +175,9 @@ def delete_pdv(request, id_store,id_pdv):
 
 def pdvs(request):
     store_list = Store.objects.all().order_by('name').values()
+    # Verifica se já foi cadastrado uma loja
+    if not store_list:
+        return HttpResponse('CADASTRE UM LOJA PRIMEIRO')
     id_default = store_list[0]['id']
     pdv_list = []
     id_store = request.GET.get('store') or id_default
